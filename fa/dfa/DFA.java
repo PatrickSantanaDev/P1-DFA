@@ -1,6 +1,6 @@
 package fa.dfa;
 
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import fa.State;
@@ -8,22 +8,23 @@ import fa.State;
 public class DFA implements DFAInterface {
 
 	DFAState initialState;
-	Set<DFAState> finalStates = new HashSet<DFAState>();
-	Set<DFAState> states = new HashSet<DFAState>();
+	LinkedHashSet<Character> alphabet = new LinkedHashSet<>();
+	LinkedHashSet<DFAState> finalStates = new LinkedHashSet<>();
+	LinkedHashSet<DFAState> states = new LinkedHashSet<>();
 
 	public void addFinalState(String nextToken) {
-		DFAState stateToAdd = new DFAState(nextToken);
+		DFAState stateToAdd = new DFAState(nextToken, true);
 		finalStates.add(stateToAdd);
 		states.add(stateToAdd);
 	}
 
 	public void addStartState(String startStateName) {
-		initialState = new DFAState(startStateName);
+		initialState = new DFAState(startStateName, false);
 		states.add(initialState);
 	}
 
 	public void addState(String nextToken) {
-		DFAState stateToAdd = new DFAState(nextToken);
+		DFAState stateToAdd = new DFAState(nextToken, false);
 		states.add(stateToAdd);
 	}
 
@@ -39,8 +40,7 @@ public class DFA implements DFAInterface {
 
 	@Override
 	public Set<? extends State> getStates() {
-		// TODO Auto-generated method stub
-		return null;
+		return states;
 	}
 
 	@Override
@@ -67,11 +67,26 @@ public class DFA implements DFAInterface {
 
 	@Override
 	public String toString() {
-		String output = "";
-
-		output += "Q = { }\n";
-		output += "Sigma = { }\n";
-		output += "delta = \n";
+		Character a = 'a';
+		Character b = 'b';
+		Character c = 'c';
+		Character d = 'd';
+		alphabet.add(a);
+		alphabet.add(b);
+		alphabet.add(c);
+		alphabet.add(d);
+		String output = "Q = " + states.toString().replace("[", "{ ").replace("]", " }").replace(",", " ");
+		output += "\nSigma = " + alphabet.toString().replace("[", "{ ").replace("]", " }");
+		output += "\ndelta = \n\t";
+		for (Character itr : alphabet) {
+			output += "\t" + itr.toString();
+		}
+		output += "\n";
+		for (DFAState itr : states) {
+			output += "\t" + itr.toString() + "\n";
+		}
+		output += "\nq0 = " + initialState.toString();
+		output += "\nF = " + finalStates.toString().replace("[", "{ ").replace("]", " }").replace("", "") + "\n";
 
 		return output;
 	}
