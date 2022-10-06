@@ -5,42 +5,57 @@ import java.util.LinkedHashSet;
 import java.util.StringTokenizer;
 import java.util.Map.Entry;
 
+/**
+ * A class to simulate a Deterministic Finite Automata (DFA) with a given input
+ * file
+ * 
+ * @author austinhnelson, PatrickSantanaDev
+ */
 public class DFA implements DFAInterface {
 
+	/* Declaring Sets */
 	DFAState initialState;
 	LinkedHashSet<Character> alphabet = new LinkedHashSet<>();
 	LinkedHashSet<DFAState> finalStates = new LinkedHashSet<>();
 	LinkedHashSet<DFAState> states = new LinkedHashSet<>();
-	LinkedHashSet<DFAState> startStates = new LinkedHashSet<>();
 
-	/* 
+	/**
+	 * Adds a state to the machine and specifies it as a final state
 	 * 
+	 * @param nextToken the final state to add
 	 */
 	public void addFinalState(String nextToken) {
-		DFAState stateToAdd = new DFAState(nextToken/* , true */);
+		DFAState stateToAdd = new DFAState(nextToken);
 		finalStates.add(stateToAdd);
 		states.add(stateToAdd);
 	}
 
+	/**
+	 * Adds a state to the machine and specifies it as an initial state
+	 * 
+	 * @param startStateName the start state to add
+	 */
 	public void addStartState(String startStateName) {
 		initialState = new DFAState(startStateName);
 		states.add(initialState);
-		startStates.add(initialState);
 	}
 
-	/*
+	/**
+	 * Adds a state to the machine
 	 * 
+	 * @param nextToken the state to add
 	 */
 	public void addState(String nextToken) {
 		DFAState stateToAdd = new DFAState(nextToken/* , false */);
 		states.add(stateToAdd);
 	}
 
-	/*
+	/**
 	 * Adds the transition to the DFA's linkedHashSet
-	 * valueOf is the label of the state where the transition starts
-	 * c is the symbol from the DFA's alphabet.
-	 * valueOf2 is the label of the state where the transition ends
+	 * 
+	 * @param valueOf  the label of the state where the transition starts
+	 * @param c        the symbol from the DFA's alphabet
+	 * @param valueOf2 the label of the state where the transition ends
 	 */
 	public void addTransition(String valueOf, char c, String valueOf2) {
 		// iterate through dfa states in linkedHashSet
@@ -58,14 +73,13 @@ public class DFA implements DFAInterface {
 				dfaState.addTransition(c, valueOf2);
 			}
 		}
-
 	}
 
 	/**
 	 * Simulates a DFA on input s to determine
 	 * whether the DFA accepts s.
 	 * 
-	 * @param nextLine - the input string
+	 * @param nextLine the input string
 	 * @return true if s in the language of the DFA and false otherwise
 	 */
 	public boolean accepts(String nextLine) {
@@ -107,7 +121,7 @@ public class DFA implements DFAInterface {
 
 	@Override
 	public DFAState getStartState() {
-		return startStates.iterator().next();
+		return initialState;
 	}
 
 	@Override
@@ -115,11 +129,6 @@ public class DFA implements DFAInterface {
 		return alphabet;
 	}
 
-	/*
-	 * Uses transition function delta of FA
-	 * from: the source state
-	 * onSymb: the label of the transition
-	 */
 	@Override
 	public DFAState getToState(DFAState from, char onSymb) {
 		// iterate through states
@@ -175,7 +184,7 @@ public class DFA implements DFAInterface {
 		output += "\nq0 = " + initialState.toString();
 
 		// FINAL STATES
-		output += "\nF = " + finalStates.toString().replace("[", "{ ").replace("]", " }").replace("", "") + "\n";
+		output += "\nF = " + finalStates.toString().replace("[", "{ ").replace("]", " }").replace(",", "") + "\n";
 
 		return output;
 	}
