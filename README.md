@@ -29,8 +29,3 @@ program require user input? If so, what does your user need to know
 about it to use it as quickly as possible?
 
 ## Sources used
-
-If you used any sources outside of the lecture notes, class lab files,
-or text book you need to list them here. If you looked something up on
-stackoverflow.com and fail to cite it in this section it will be
-considered plagiarism and be dealt with accordingly. So be safe CITE!
