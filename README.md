@@ -6,6 +6,10 @@
 
 ## Overview
 
+A program in which simulates a Deterministic Finite Automata machine, given a 
+specific formatted input file. 
+
+
 Concisely explain what the program does. If this exceeds a couple of
 sentences, you're going too far. Generally you should be pulling this
 right from the project specification. Please don't just cut and
