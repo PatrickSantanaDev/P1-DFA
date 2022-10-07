@@ -43,7 +43,7 @@ $javac fa/dfa/*.java
 
 To Run:
 
-java fa/dfa/DFADriver.java <Input file name>
+$java fa/dfa/DFADriver.java <Input file name>
 
 Input File Structure:
 First line - names of the final states
